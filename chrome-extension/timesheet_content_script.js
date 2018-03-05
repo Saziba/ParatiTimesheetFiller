@@ -1,0 +1,1 @@
+document.querySelector('body').setAttribute("bgcolor", "#d0ddd0")
