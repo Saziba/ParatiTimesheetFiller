@@ -1,7 +1,42 @@
-function acoesOnload() {
-    console.log(this.src);
-    acoesDoc = this.contentWindow || this.contentDocument;
-    if (acoesDoc.document) acoesDoc = acoesDoc.document;
+var planilha, planilhaValue, acoesDoc, dias, gravando = false;
+
+function Dia(horas, data) {
+    this.horas = horas;
+    this.data = data;
+}
+
+function diaParser(linha) {
+    var horas, data;
+    var horasPattr = /[0-9]{2}:[0-9]{2}/i;
+    var dataPattr = /[0-3][0-9]\/[0-1][0-9]\/[0-9]{4}/i;
+    var args = linha.split(' ');
+    if (horasPattr.test(args[0]) && dataPattr.test(args[1])) {
+        horas = args[0];
+        data = args[1];
+        return new Dia(horas, data);
+    }
+    else {
+        return false;
+    }
+}
+
+function planilhaParser(vl) {
+    var linhas = vl.split('\n');
+    for (i = 0; i < linhas.length; i++) {
+        dias.push(diaParser(linhas[i]));
+    }
+}
+
+function grava(d) {}
+
+function continua_gravacao() {
+    if (dias.length == 0) {
+        return false;
+    }
+    else {
+        dia = dias.shift();
+        grava(dia);
+    }
     /*    
 
 
@@ -13,14 +48,15 @@ function acoesOnload() {
 
     acoes.body.querySelector('#botGravar').click()    */
 }
-var planilha, planilhaValue;
 
 function gravar() {
     console.log('gravando...');
+    gravando = true;
     this.onclick = "";
     planilhaValue = planilha.value;
     planilha.value = "";
-    console.log(planilhaValue);
+    planilhaParser(planilhaValue);
+    continua_gravacao;
     this.onclick = gravar;
 }
 
@@ -39,24 +75,39 @@ function conteudoConteudoOnload() {
         //
         label.innerHTML = "<strong>Timesheet Happens &trade;</strong></br>Planilha de Horas</br>para gravar clique <strong>aqui</strong>";
         label.style = "background-color:#d0ddd0";
-        label.onclick = gravar;
+        if (!gravando) {
+            label.onclick = gravar;
+        }
+        else {
+            continua_gravacao;
+        }
     }
+}
+
+function acoesOnload() {
+    console.log(this.src);
+    doc = this.contentWindow || this.contentDocument;
+    if (doc.document) acoesDoc = doc.document;
 }
 
 function conteudoOnload() {
     console.log(this.src);
     ct = (c.contentWindow || c.contentDocument);
-    if (ct.document) frms = ct.document.querySelectorAll('iframe');
-    console.log(frms);
-    acoes = frms[0];
-    acoes.onload = acoesOnload;
-    cont = frms[1]
-    cont.onload = conteudoConteudoOnload;
+    if (ct.document) {
+        var frms = ct.document.querySelectorAll('iframe');
+        console.log(frms[0].id);
+        if (frms[0].id == 'fraAcoes' && frms[1].id == 'conteudo') {
+            acoes = frms[0];
+            acoes.onload = acoesOnload;
+            cont = frms[1]
+            cont.onload = conteudoConteudoOnload;
+        }
+    }
 }
 
 function mapeiaFrames() {
-    c = document.querySelector(' #conteudo ')
-    window.open('fabr_AtividadeDiaria/fabr_AtividadeDiaria.aspx', 'conteudo');
+    c = document.querySelector(' #conteudo ');
+    //window.open('fabr_AtividadeDiaria/fabr_AtividadeDiaria.aspx', 'conteudo');
     c.onload = conteudoOnload;
 }
 

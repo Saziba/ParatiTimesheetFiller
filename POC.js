@@ -17,6 +17,6 @@ cont.body.querySelector('#txtdsc_atividade').style = "background-color:#d0ddd0"
 cont.body.querySelector('#txtnum_percentual_concluido').value = "10"
 cont.body.querySelector('#ddlCod_fabr_tipoatividade').value = "1"
 cont.body.querySelector('#txtHorasTrabalhadas').value = "07:30"
-cont.body.querySelector('#txtDataAtividade').value = "24/02/2018"
+cont.body.querySelector('#txtDataAtividade').value = "27/03/2018"
 cont.body.querySelector('#txtdsc_Observacoes').value = "Atividades referentes ao projeto informado"
 acoes.body.querySelector('#botGravar').click()
