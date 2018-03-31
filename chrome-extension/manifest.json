@@ -1,8 +1,8 @@
 {
-    "name": "Parati Timesheet Filler"
+    "name": "Parati Timesheet Happens"
     , "version": "0.1"
     , "manifest_version": 2
-    , "description": "Timesheet hapens!"
+    , "description": "Input your timesheet in batch"
     , "browser_action": {
         "default_icon": "icons/icon.png"
         , "default_title": "Insert your timesheet for batch inputs"
@@ -21,11 +21,11 @@
     , "permissions": ["downloads", "tabs", "activeTab"]
     , "externally_connectable": {
         "matches": [
-      "http://parati.trescon.com.br/Sistema3con/parati.aspx"
+      "https://parati.trescon.com.br/sistema3con/parati.aspx"
     ]
     }
     , "content_scripts": [{
-        "matches": ["http://parati.trescon.com.br/Sistema3con/parati.aspx"]
+        "matches": ["https://parati.trescon.com.br/sistema3con/parati.aspx"]
         , "js": ["timesheet_content_script.js"]
   }]
     , "web_accessible_resources": ["timesheet_content_script.js"]
