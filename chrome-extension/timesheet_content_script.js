@@ -1,4 +1,5 @@
-var planilha, planilhaValue, acoesDoc, dias, gravando = false;
+var planilha, planilhaValue, acoesDoc, dias = []
+    , gravando = false;
 
 function Dia(horas, data) {
     this.horas = horas;
